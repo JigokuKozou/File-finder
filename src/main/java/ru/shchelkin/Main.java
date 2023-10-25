@@ -1,5 +1,6 @@
 package ru.shchelkin;
 
+import ru.shchelkin.algorithm.CRC8;
 import ru.shchelkin.algorithm.ControlSumAlgorithm;
 import ru.shchelkin.algorithm.Md5Algorithm;
 import ru.shchelkin.utils.FileUtils;
@@ -15,7 +16,7 @@ import java.util.List;
 public class Main {
 
     private static final ConsoleInterface userInterface = new ConsoleInterface();
-    private static final ControlSumAlgorithm controlSumAlgorithm = new Md5Algorithm();
+    private static final ControlSumAlgorithm controlSumAlgorithm = new CRC8();
 
     public static void main(String[] args) {
         int action = 0;
@@ -31,7 +32,7 @@ public class Main {
             }
 
             if (action == 1) {
-                String filePath = userInterface.requestString("Введите путь до файла: ");
+                String filePath = userInterface.requestString("Введите путь до файла: ").replace("\"", "");
 
                 try {
                     // Создаем поток для чтения файла
@@ -49,7 +50,7 @@ public class Main {
 
             if (action == 2) {
                 String searchableControlSum  = userInterface.requestString("Введите контрольную сумму: ");
-                String directoryPath  = userInterface.requestString("Введите путь до директории: ");
+                String directoryPath  = userInterface.requestString("Введите путь до директории: ").replace("\"", "");
                 userInterface.showMessage("Пожалуйста подождите. Сканирование...");
 
                 File directory = new File(directoryPath);
